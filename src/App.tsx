@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Container, Grid } from "@mui/material";
-import { TextField, List } from "./components";
+import { TextField, List, NoItem } from "./components";
 
 import classes from "./styles";
 
@@ -14,6 +14,10 @@ function App() {
     setTodos(updatedTodos);
   };
 
+  const renderNoItem = useMemo(() => {
+    if (!todos.length) return <NoItem />;
+  }, [todos.length]);
+
   return (
     <Container maxWidth="sm" className={classes.container}>
       {/* Header textfield */}
@@ -23,6 +27,7 @@ function App() {
       {/* Header textfield end*/}
 
       <Grid container item xs={12}>
+        {/* {renderNoItem} */}
         <List />
       </Grid>
     </Container>
