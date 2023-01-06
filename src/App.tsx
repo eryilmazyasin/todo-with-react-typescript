@@ -8,7 +8,6 @@ function App() {
   const [todos, setTodos] = useState<string[]>([]);
 
   const addTodo = (todo: string) => {
-    console.log({ todoAddTodo: todo });
     if (!todo.length) return;
 
     const updatedTodos = [...todos, todo];
