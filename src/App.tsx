@@ -14,8 +14,6 @@ function App() {
     setTodos(updatedTodos);
   };
 
-  console.log({ todos });
-
   return (
     <Container maxWidth="sm" className={classes.container}>
       {/* Header textfield */}
