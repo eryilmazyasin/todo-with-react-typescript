@@ -1,11 +1,15 @@
 import React from "react";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, InputAdornment } from "@mui/material";
+import { Add } from "@mui/icons-material";
+import TextField from "./components/TextField";
+
+import classes from "./styles";
 
 function App() {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" className={classes.container}>
       <Grid item xs={8}>
-        Hello
+        <TextField />
       </Grid>
     </Container>
   );
