@@ -1,9 +1,29 @@
+import { useRef, useState } from "react";
 import { InputAdornment, TextField } from "@mui/material";
 import { Add } from "@mui/icons-material";
 
 import classes from "../styles";
+import React from "react";
 
-const MyTextField = () => {
+interface IProps {
+  handleAddTodo: (todo: string) => void;
+}
+
+export default function MyTextField(props: IProps) {
+  const [todo, setTodo] = useState("");
+  const { handleAddTodo } = props;
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleAddTodo(todo);
+      setTodo("");
+    }
+  };
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTodo(e.target.value);
+  };
+
   return (
     <TextField
       className={classes.input}
@@ -18,8 +38,9 @@ const MyTextField = () => {
           </InputAdornment>
         ),
       }}
+      onKeyDown={handleKeyDown}
+      onChange={handleOnChange}
+      value={todo}
     />
   );
-};
-
-export default MyTextField;
+}
