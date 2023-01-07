@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Container, Grid } from "@mui/material";
-import { TextField, List, NoItem } from "./components";
+import { TextField, TodoList, NoItem } from "./components";
 
 import classes from "./styles";
 import { ITodo } from "./interfaces";
@@ -13,6 +13,14 @@ function App() {
 
     const updatedTodos = [...todos, todo];
     setTodos(updatedTodos);
+  };
+
+  const updateTodoCheck = (index: number, checked: boolean) => {
+    const todoList: ITodo[] = [...todos];
+
+    todoList[index].checked = checked;
+    console.log({ todoList, index, checked });
+    // setTodos(updatedTodo);
   };
 
   console.log({ todos });
@@ -30,8 +38,8 @@ function App() {
       {/* Header textfield end*/}
 
       <Grid container item xs={12}>
-        {/* {renderNoItem} */}
-        <List />
+        {renderNoItem}
+        <TodoList todos={todos} updateTodoCheck={updateTodoCheck} />
       </Grid>
     </Container>
   );
