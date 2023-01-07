@@ -8,7 +8,7 @@ interface IProps {
   todos: ITodo[];
 
   handleUpdateTodoCheck: (todoIndex: number, checked: boolean) => void;
-  handleDeleteTodo: (todo: ITodo, todoIndex: number) => void;
+  handleDeleteTodo: (todoIndex: number) => void;
 }
 
 export default function TodoList({

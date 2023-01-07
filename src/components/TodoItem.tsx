@@ -13,7 +13,7 @@ interface IProps {
   index: number;
 
   handleUpdateTodoCheck: (todoIndex: number, checked: boolean) => void;
-  handleDeleteTodo: (todo: ITodo, todoIndex: number) => void;
+  handleDeleteTodo: (todoIndex: number) => void;
 }
 
 export default function TodoItem({
@@ -31,7 +31,7 @@ export default function TodoItem({
   };
 
   const onClickDelete = () => {
-    if (handleDeleteTodo) handleDeleteTodo(todo, index);
+    if (handleDeleteTodo) handleDeleteTodo(index);
   };
 
   return (

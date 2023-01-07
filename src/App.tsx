@@ -23,26 +23,25 @@ function App() {
     setTodos(todoList);
   };
 
-  const deleteTodo = (todo: ITodo, index: number) => {
+  const deleteTodo = (index: number) => {
     const todoList: ITodo[] = [...todos];
     todoList.splice(index, 1);
 
     setDeletedCount(deletedCount + 1);
 
     setTodos(todoList);
-
-    console.log({ todoList });
   };
 
-  const renderNoItem = useMemo(() => {
+  const renderEmptyList = useMemo(() => {
     if (!todos.length) return <NoItem />;
   }, [todos.length]);
 
-  const { checkedTodosNumber } = useMemo(() => {
+  const { checkedTodosLength, todosLength } = useMemo(() => {
     const checkedTodos = todos.filter((todo) => todo.checked);
 
     return {
-      checkedTodosNumber: checkedTodos.length,
+      checkedTodosLength: checkedTodos.length,
+      todosLength: todos.length,
     };
   }, [todos]);
 
@@ -59,12 +58,12 @@ function App() {
             deleted
           </span>
         )}
-        {deletedCount > 0 && checkedTodosNumber > 0 && " - "}
-        {checkedTodosNumber > 0 && (
+        {deletedCount > 0 && checkedTodosLength > 0 && " - "}
+        {checkedTodosLength > 0 && (
           <span>
-            {checkedTodosNumber === 1
-              ? `${checkedTodosNumber} todo is`
-              : `${checkedTodosNumber} todos are`}{" "}
+            {checkedTodosLength === 1
+              ? `${checkedTodosLength} todo is`
+              : `${checkedTodosLength} todos are`}{" "}
             done
           </span>
         )}
@@ -82,7 +81,7 @@ function App() {
 
       <Grid container item xs={12}>
         {renderTodoListInfo()}
-        {renderNoItem}
+        {renderEmptyList}
         <TodoList
           todos={todos}
           handleUpdateTodoCheck={updateTodoCheck}
