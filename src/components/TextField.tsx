@@ -4,24 +4,35 @@ import { Add } from "@mui/icons-material";
 
 import classes from "../styles";
 import React from "react";
+import { ITodo } from "../interfaces";
 
 interface IProps {
-  handleAddTodo: (todo: string) => void;
+  handleAddTodo: (todo: ITodo) => void;
 }
 
+const TodoDefaults: ITodo = {
+  text: "",
+  checked: false,
+};
+
 export default function MyTextField(props: IProps) {
-  const [todo, setTodo] = useState("");
+  const [todo, setTodo] = useState<ITodo>(TodoDefaults);
   const { handleAddTodo } = props;
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleAddTodo(todo);
-      setTodo("");
+      const todoObj: ITodo = {
+        text: todo.text,
+        checked: false,
+      };
+
+      handleAddTodo(todoObj);
+      setTodo(TodoDefaults);
     }
   };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTodo(e.target.value);
+    setTodo({ text: e.target.value });
   };
 
   return (
@@ -40,7 +51,7 @@ export default function MyTextField(props: IProps) {
       }}
       onKeyDown={handleKeyDown}
       onChange={handleOnChange}
-      value={todo}
+      value={todo.text}
     />
   );
 }

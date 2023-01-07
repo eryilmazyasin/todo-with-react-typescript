@@ -3,16 +3,19 @@ import { Container, Grid } from "@mui/material";
 import { TextField, List, NoItem } from "./components";
 
 import classes from "./styles";
+import { ITodo } from "./interfaces";
 
 function App() {
-  const [todos, setTodos] = useState<string[]>([]);
+  const [todos, setTodos] = useState<ITodo[]>([]);
 
-  const addTodo = (todo: string) => {
-    if (!todo.length) return;
+  const addTodo = (todo: ITodo) => {
+    if (!todo.text) return;
 
     const updatedTodos = [...todos, todo];
     setTodos(updatedTodos);
   };
+
+  console.log({ todos });
 
   const renderNoItem = useMemo(() => {
     if (!todos.length) return <NoItem />;
