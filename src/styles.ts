@@ -26,5 +26,9 @@ export default {
     text-align: right;
     color: #333333;
     margin-top: 10px;
+
+    .deletedSpan {
+      color: #d34545;
+    }
   `,
 };

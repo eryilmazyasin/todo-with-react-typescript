@@ -12,22 +12,32 @@ interface IProps {
   todo: ITodo;
   index: number;
 
-  updateTodoCheck: (index: number, checked: boolean) => void;
+  handleUpdateTodoCheck: (todoIndex: number, checked: boolean) => void;
+  handleDeleteTodo: (todo: ITodo, todoIndex: number) => void;
 }
 
-export default function TodoItem({ todo, index, updateTodoCheck }: IProps) {
+export default function TodoItem({
+  todo,
+  index,
+  handleUpdateTodoCheck,
+  handleDeleteTodo,
+}: IProps) {
   const [checked, setChecked] = useState(false);
 
   const handleToggle = () => {
     setChecked(!checked);
 
-    if (updateTodoCheck) updateTodoCheck(index, !checked);
+    if (handleUpdateTodoCheck) handleUpdateTodoCheck(index, !checked);
+  };
+
+  const onClickDelete = () => {
+    if (handleDeleteTodo) handleDeleteTodo(todo, index);
   };
 
   return (
     <ListItem
       secondaryAction={
-        <IconButton edge="end" aria-label="comments">
+        <IconButton edge="end" aria-label="comments" onClick={onClickDelete}>
           <Delete />
         </IconButton>
       }

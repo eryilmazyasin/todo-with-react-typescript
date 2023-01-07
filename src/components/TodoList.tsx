@@ -7,10 +7,15 @@ import classes from "../styles";
 interface IProps {
   todos: ITodo[];
 
-  updateTodoCheck: (todoKey: number, checked: boolean) => void;
+  handleUpdateTodoCheck: (todoIndex: number, checked: boolean) => void;
+  handleDeleteTodo: (todo: ITodo, todoIndex: number) => void;
 }
 
-export default function TodoList({ todos, updateTodoCheck }: IProps) {
+export default function TodoList({
+  todos,
+  handleUpdateTodoCheck,
+  handleDeleteTodo,
+}: IProps) {
   return (
     <List className={classes.todoList}>
       {todos.map((todo, index) => (
@@ -18,7 +23,8 @@ export default function TodoList({ todos, updateTodoCheck }: IProps) {
           key={index}
           index={index}
           todo={todo}
-          updateTodoCheck={updateTodoCheck}
+          handleUpdateTodoCheck={handleUpdateTodoCheck}
+          handleDeleteTodo={handleDeleteTodo}
         />
       ))}
     </List>

@@ -7,6 +7,7 @@ import { ITodo } from "./interfaces";
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
+  const [deletedCount, setDeletedCount] = useState(0);
 
   const addTodo = (todo: ITodo) => {
     if (!todo.text) return;
@@ -22,17 +23,26 @@ function App() {
     setTodos(todoList);
   };
 
-  const deleteTodo = () => {};
+  const deleteTodo = (todo: ITodo, index: number) => {
+    const todoList: ITodo[] = [...todos];
+    todoList.splice(index, 1);
+
+    setDeletedCount(deletedCount + 1);
+
+    setTodos(todoList);
+
+    console.log({ todoList });
+  };
 
   const renderNoItem = useMemo(() => {
     if (!todos.length) return <NoItem />;
   }, [todos.length]);
 
-  const { checkedTodos } = useMemo(() => {
+  const { checkedTodosNumber } = useMemo(() => {
     const checkedTodos = todos.filter((todo) => todo.checked);
 
     return {
-      checkedTodos,
+      checkedTodosNumber: checkedTodos.length,
     };
   }, [todos]);
 
@@ -41,11 +51,20 @@ function App() {
 
     return (
       <div className={classes.todoListInfo}>
-        {checkedTodos.length > 0 && (
+        {deletedCount > 0 && (
+          <span className="deletedSpan">
+            {deletedCount === 1
+              ? `${deletedCount} todo is`
+              : `${deletedCount} todos are`}{" "}
+            deleted
+          </span>
+        )}
+        {deletedCount > 0 && checkedTodosNumber > 0 && " - "}
+        {checkedTodosNumber > 0 && (
           <span>
-            {checkedTodos.length === 1
-              ? `${checkedTodos.length} todo is`
-              : `${checkedTodos.length} todos are`}{" "}
+            {checkedTodosNumber === 1
+              ? `${checkedTodosNumber} todo is`
+              : `${checkedTodosNumber} todos are`}{" "}
             done
           </span>
         )}
@@ -64,7 +83,11 @@ function App() {
       <Grid container item xs={12}>
         {renderTodoListInfo()}
         {renderNoItem}
-        <TodoList todos={todos} updateTodoCheck={updateTodoCheck} />
+        <TodoList
+          todos={todos}
+          handleUpdateTodoCheck={updateTodoCheck}
+          handleDeleteTodo={deleteTodo}
+        />
       </Grid>
     </Container>
   );
