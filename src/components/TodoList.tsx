@@ -2,6 +2,8 @@ import List from "@mui/material/List";
 import { ITodo } from "../interfaces";
 import TodoItem from "./TodoItem";
 
+import classes from "../styles";
+
 interface IProps {
   todos: ITodo[];
 
@@ -10,13 +12,7 @@ interface IProps {
 
 export default function TodoList({ todos, updateTodoCheck }: IProps) {
   return (
-    <List
-      sx={{
-        width: "100%",
-        bgcolor: "background.paper",
-        padding: "25px 10px 0 10px",
-      }}
-    >
+    <List className={classes.todoList}>
       {todos.map((todo, index) => (
         <TodoItem
           key={index}

@@ -17,17 +17,41 @@ function App() {
 
   const updateTodoCheck = (index: number, checked: boolean) => {
     const todoList: ITodo[] = [...todos];
-
     todoList[index].checked = checked;
-    console.log({ todoList, index, checked });
-    // setTodos(updatedTodo);
+
+    setTodos(todoList);
   };
 
-  console.log({ todos });
+  const deleteTodo = () => {};
 
   const renderNoItem = useMemo(() => {
     if (!todos.length) return <NoItem />;
   }, [todos.length]);
+
+  const { checkedTodos } = useMemo(() => {
+    const checkedTodos = todos.filter((todo) => todo.checked);
+
+    return {
+      checkedTodos,
+    };
+  }, [todos]);
+
+  const renderTodoListInfo = () => {
+    if (!todos.length) return;
+
+    return (
+      <div className={classes.todoListInfo}>
+        {checkedTodos.length > 0 && (
+          <span>
+            {checkedTodos.length === 1
+              ? `${checkedTodos.length} todo is`
+              : `${checkedTodos.length} todos are`}{" "}
+            done
+          </span>
+        )}
+      </div>
+    );
+  };
 
   return (
     <Container maxWidth="sm" className={classes.container}>
@@ -38,6 +62,7 @@ function App() {
       {/* Header textfield end*/}
 
       <Grid container item xs={12}>
+        {renderTodoListInfo()}
         {renderNoItem}
         <TodoList todos={todos} updateTodoCheck={updateTodoCheck} />
       </Grid>

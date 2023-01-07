@@ -1,10 +1,9 @@
-import { useRef, useState } from "react";
+import React, { useState } from "react";
 import { InputAdornment, TextField } from "@mui/material";
 import { Add } from "@mui/icons-material";
+import { ITodo } from "../interfaces";
 
 import classes from "../styles";
-import React from "react";
-import { ITodo } from "../interfaces";
 
 interface IProps {
   handleAddTodo: (todo: ITodo) => void;
